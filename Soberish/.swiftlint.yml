@@ -1,0 +1,72 @@
+#
+# .swiftlint.yml
+#  Soberish
+#
+#  Created by Brian Teutsch on 11/2/26.
+#
+
+# Directory and file filters
+included:
+  - Plugins
+  - Source
+  - Tests
+  - Package.swift
+excluded:
+  - assets
+  - Tests/BuiltInRulesTests/Resources
+  - Tests/FileSystemAccessTests/Resources
+  - Tests/IntegrationTests/Resources
+
+# Enabled/disabled rules
+analyzer_rules:
+  - unused_declaration
+  - unused_import
+disabled_rules:
+  - explicit_acl
+
+# Configurations
+function_body_length: 60
+identifier_name:
+  excluded:
+    - id
+large_tuple: 3
+trailing_comma:
+  mandatory_comma: true
+type_body_length:
+  warning: 400
+  excluded_types: []
+unneeded_override:
+  affect_initializers: true
+unused_import:
+  always_keep_imports:
+    - SwiftSyntaxBuilder # we can't detect uses of string interpolation of swift syntax nodes
+    - SwiftLintFramework # now that this is a wrapper around other modules, don't treat as unused
+
+# Custom rules
+custom_rules:
+  rule_id:
+    included: Source/SwiftLintBuiltInRules/Rules/.+/\w+\.swift
+    name: Rule ID
+    message: Rule IDs must be all lowercase, snake case and not end with `rule`
+    regex: ^\s+identifier:\s*("\w+_rule"|"\S*[^a-z_]\S*")
+    severity: error
+  fatal_error:
+    name: Fatal Error
+    excluded: "Tests/*"
+    message: Prefer `queuedFatalError` over `fatalError` to avoid leaking compiler host machine paths
+    regex: \bfatalError\b
+    match_kinds:
+      - identifier
+    severity: error
+  rule_test_function:
+    included: Tests/SwiftLintFrameworkTests/RulesTests.swift
+    name: Rule Test Function
+    message: Rule Test Function mustn't end with `rule`
+    regex: func\s*test\w+(r|R)ule\(\)
+    severity: error
+  testable_import:
+    included: Tests/TestHelpers/.+\.swift
+    name: Testable Import
+    message: Do not use @testable imports
+    regex: ^\s*@testable\s+import\s+\w+
+    severity: error

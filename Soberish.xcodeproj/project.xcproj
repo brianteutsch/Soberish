@@ -10,6 +10,15 @@
       "Base",
     ],
   },
+  "packages": [
+    {
+      "kind": "remote",
+      "repository": "https://github.com/SimplyDanny/SwiftLintPlugins",
+      "version": {
+        "up-to-next-major-version": "0.65.1",
+      },
+    },
+  ],
   "files": [
     { "kind": "folder", "path": "Soberish", "target-membership": [ "Soberish" ] },
     {
@@ -26,6 +35,9 @@
       "id": "000000000000000100000000",
       "product": "Products/Soberish.app",
       "product-type": "application",
+      "dependencies": [
+        { "kind": "package", "package": "SwiftLintPlugins", "product-name": "SwiftLintBuildToolPlugin", "product-type": "build-tool-plugin" },
+      ],
       "build-phases": [
         "compile-sources",
         "frameworks",
