@@ -2,8 +2,8 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        Text("Soberish")
-            .padding()
+        let drink = Drink.preview
+        DrinkView(drink: drink)
     }
 }
 
