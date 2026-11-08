@@ -26,9 +26,7 @@ class SampleData {
 
         do {
             modelContainer = try ModelContainer(for: schema, configurations: [modelConfiguration])
-
-            insertSampleData()
-
+            self.addSampleData(5)
             try context.save()
         } catch {
             // swiftlint:disable:next fatal_error
@@ -36,8 +34,12 @@ class SampleData {
         }
     }
 
-    private func insertSampleData() {
-        for _ in 1...10 {
+    public func addSampleData(_ count: Int = 10) {
+        insertSampleData(count)
+    }
+
+    private func insertSampleData(_ count: Int = 10 ) {
+        for _ in 1...count {
             let previewDrinks = Drink.previewDrinks
             let drink = previewDrinks[Int.random(in: 0...(previewDrinks.count - 1))]
             self.context.insert(drink)

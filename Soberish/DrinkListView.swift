@@ -13,12 +13,10 @@ struct DrinkListView: View {
     @Environment(\.modelContext) private var context
 
     var body: some View {
-        NavigationView {
-            List {
-                ForEach(drinks) { drink in
-                    NavigationLink(drink.name) {
-                        DrinkView(drink: drink)
-                    }
+        List {
+            ForEach(drinks) { drink in
+                NavigationLink(drink.name) {
+                    DrinkView(drink: drink)
                 }
             }
         }
@@ -26,6 +24,10 @@ struct DrinkListView: View {
 }
 
 #Preview {
-    DrinkListView()
-        .modelContainer(SampleData.shared.modelContainer)
+    let sampleData = SampleData.shared
+//    sampleData.addSampleData()
+    NavigationStack {
+        DrinkListView()
+            .modelContainer(sampleData.modelContainer)
+    }
 }
