@@ -13,14 +13,14 @@ struct ContentView: View {
             // Apply the toolbar to the inner view, NOT the NavigationStack
             .toolbar {
                 ToolbarItem(placement: .bottomBar) {
-                    Button(action: {
+                    Button {
                         let drink = Drink.preview
                         context.insert(drink)
                         do {
                             try context.save()
                         } catch {
                         }
-                    }) {
+                    } label: {
                         Label("Add Item", systemImage: "plus")
                     }
                 }
